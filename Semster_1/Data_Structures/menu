@@ -1,0 +1,80 @@
+//Menu Driven to insert search and display
+#include <stdio.h>
+
+int a[10], n = 0; 
+
+void read(){      
+    if (n >= 10) { 
+        printf("Array is full!\n");
+        return;
+    }
+    printf("Enter an element :");
+    scanf("%d", &a[n]);
+    n++;
+}
+
+void disp(){
+    int i;
+    if (n == 0) {
+        printf("Array is empty.");
+        return;
+    }
+    for(i = 0; i < n; i++){
+        printf("%d\t", a[i]); 
+    }
+    printf("\n");
+}
+
+int search(){
+    int s;
+    int i;
+    printf("Enter the element to search :");
+    scanf("%d", &s);
+    for(i = 0; i < n; i++){
+        if(a[i] == s){
+            return i;
+        }
+    }
+    return -1;
+}
+
+int menu(){
+    int ch;
+    printf("\n1.Insert\n2.Display\n3.Search\n4.Exit\n\nEnter your choice :");
+    scanf("%d", &ch);
+    return ch;
+}
+
+void process(){
+    int ch;
+    int pos; 
+    
+    for(ch = menu(); ch != 4; ch = menu()){
+        switch(ch){
+            case 1: 
+                read();
+                break;
+            
+            case 2: 
+                disp();
+                break;
+            
+            case 3: 
+                pos = search(); 
+                if(pos == -1)
+                    printf("Not Found\n");
+                else
+                    printf("Found at index %d\n", pos);
+                break;
+            
+            default:
+                printf("Wrong choice\n");
+                break;
+        }
+    }
+}
+
+int main(){
+    process();
+    return 0;
+}
