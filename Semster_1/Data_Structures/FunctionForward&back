@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+//Function to print from 1 to n
+void forward(int n){       //We use void because these functions do not return any value. Their only job is to display (print) the numbers.
+    for(int i=1;i<=n;i++){
+        printf("%d\t",i);
+    }
+}
+
+// Function to print from n to 1
+void backward(int n){
+    for(int i=n;i>=1;i--){
+        printf("%d\t",i);
+    }
+}
+
+void main() {
+    int num;
+    printf("Enter a positive number: ");
+    scanf("%d", &num);
+
+    if(num>0){
+        printf("Forward (1 to %d): ",num);
+        forward(num);
+
+        printf("\nBackward (%d to 1): ",num);
+        backward(num);
+    } else {
+        printf("Please enter a positive number.\n");
+    }
+}

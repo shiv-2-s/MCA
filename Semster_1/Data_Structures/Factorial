@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int factorial(int n){
+    int fact=1;		//multiplication so we cant use 0
+    for(int i=1;i<=n;i++){
+        fact=fact*i;
+    }
+    return fact;
+}
+
+void main(){
+    int num;
+    printf("Enter a positive number:");
+    scanf("%d",&num);
+    if(num>=0){
+        printf("Factorial of %d = %d",num,factorial(num));
+    }
+    else{
+        printf("Factorial is not defined for negative numbers.");
+    }
+}
