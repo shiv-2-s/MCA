@@ -1,0 +1,157 @@
+-- Create COURSE table
+CREATE TABLE course (
+    cid VARCHAR2(20),
+    cname VARCHAR2(20),
+    fees NUMBER(10,2),
+    duration NUMBER(38)
+);
+
+-- Add a new column
+ALTER TABLE course
+ADD since DATE;
+
+-- Add Primary Key
+ALTER TABLE course
+ADD PRIMARY KEY (cid);
+
+-- Drop Primary Key
+ALTER TABLE course
+DROP PRIMARY KEY;
+
+-- Add named Primary Key
+ALTER TABLE course
+ADD CONSTRAINT pk_course
+PRIMARY KEY (cid);
+
+-- Add Check Constraint for Fees
+ALTER TABLE course
+ADD CONSTRAINT ck_fees
+CHECK (fees > 0);
+
+-- Add Check Constraint for Duration
+ALTER TABLE course
+ADD CONSTRAINT ck_duration
+CHECK (duration > 0);
+
+-- View Constraints
+SELECT constraint_name, constraint_type
+FROM all_constraints
+WHERE table_name = 'COURSE';
+
+-- Add Check Constraint on Date
+ALTER TABLE course
+ADD CHECK (since > '02-JAN-2000');
+
+-- View Constraints Again
+SELECT constraint_name, constraint_type
+FROM all_constraints
+WHERE table_name = 'COURSE';
+
+-- Drop Check Constraint
+ALTER TABLE course
+DROP CONSTRAINT ck_duration;
+
+-- View Constraints
+SELECT constraint_name, constraint_type
+FROM all_constraints
+WHERE table_name = 'COURSE';
+
+-- Change Data Type of CID
+ALTER TABLE course
+MODIFY cid INT;
+
+-- Change Data Type of Duration
+ALTER TABLE course
+MODIFY duration VARCHAR2(20);
+
+-- Add New Check Constraint for Duration
+ALTER TABLE course
+ADD CONSTRAINT ck_duration
+CHECK (duration IN ('ONE','TWO','THREE','FOUR','FIVE'));
+
+-- Rename Column
+ALTER TABLE course
+RENAME COLUMN fees TO course_fees;
+
+-- Create COURSEINFO Table
+CREATE TABLE courseinfo (
+    cid VARCHAR2(20),
+    cname VARCHAR2(20)
+);
+
+-- Insert Records
+INSERT INTO course
+VALUES ('101','mca','11000','TWO','01-JAN-2001');
+
+INSERT INTO course
+VALUES ('102','msc','105000','TWO','01-JAN-2000');
+
+-- This will fail because of CHECK constraint
+INSERT INTO course
+VALUES ('102','msc','105000','TWO','01-JAN-2020');
+
+INSERT INTO course
+VALUES ('103','bca','165000','FOUR','01-MAR-2020');
+
+INSERT INTO course
+VALUES ('104','imca','175000','FIVE','08-MAR-2022');
+
+INSERT INTO course
+VALUES ('105','msw','75000','TWO','08-MAR-2025');
+
+-- View Records
+SELECT * FROM course;
+
+-- Copy Data to COURSEINFO
+INSERT INTO courseinfo
+SELECT cid, cname
+FROM course;
+
+-- View COURSEINFO
+SELECT * FROM courseinfo;
+
+-- Delete All Records
+DELETE FROM course;
+
+-- Delete Specific Record
+DELETE FROM course
+WHERE cid = '102';
+
+-- View Records
+SELECT * FROM course;
+
+-- Delete Records with Condition
+DELETE FROM course
+WHERE duration = 'TWO';
+
+-- View Records
+SELECT * FROM course;
+
+-- Update Fee for BCA
+UPDATE course
+SET course_fees = 13000
+WHERE cname = 'bca';
+
+-- View Records
+SELECT * FROM course;
+
+-- Increase IMCA Fee by 10%
+UPDATE course
+SET course_fees = course_fees + (0.1 * course_fees)
+WHERE cname = 'imca';
+
+-- View Records
+SELECT * FROM course;
+
+-- Increase All Course Fees by 10%
+UPDATE course
+SET course_fees = course_fees + (0.1 * course_fees);
+
+-- View Records
+SELECT * FROM course;
+
+-- Remove All Records Quickly
+TRUNCATE TABLE course;
+
+-- Verify Table is Empty
+SELECT * FROM course;
