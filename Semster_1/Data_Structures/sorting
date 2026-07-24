@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+void read(int arr[], int n);
+void sort(int arr[], int n);
+void disp(int arr[], int n);
+
+int main() {
+    int arr[100], n;
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    read(arr, n);
+    sort(arr, n);
+    printf("Array after sorting in ascending order:\n");
+    disp(arr, n);
+
+    return 0;
+}
+
+// Function to read array elements
+void read(int arr[], int n) {
+    printf("Enter %d elements:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+}
+
+// Function to sort array in ascending order
+void sort(int arr[], int n) {
+    int temp;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] > arr[j]) {
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
+// Function to display array elements
+void disp(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+}
