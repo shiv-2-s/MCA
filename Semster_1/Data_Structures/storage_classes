@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+// Global variable
+int globalVar = 100;
+
+void storageDemo()
+{
+    // Local variable
+    int localVar = 10;
+
+    // Static variable
+    static int staticVar = 0;
+
+    // Register variable
+    register int registerVar = 20;
+
+    staticVar++;
+
+    printf("\nInside Function:");
+    printf("\nLocal Variable = %d", localVar);
+    printf("\nGlobal Variable = %d", globalVar);
+    printf("\nStatic Variable = %d", staticVar);
+    printf("\nRegister Variable = %d\n", registerVar);
+}
+
+int main()
+{
+    printf("First Function Call:");
+    storageDemo();
+
+    printf("\nSecond Function Call:");
+    storageDemo();
+
+    return 0;
+}
+
+
